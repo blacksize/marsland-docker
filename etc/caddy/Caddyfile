@@ -1,5 +1,5 @@
-{$domain}
-
-reverse_proxy {
-  to web:80
+{$domain} {
+    reverse_proxy {
+        to web:80
+    }
 }
