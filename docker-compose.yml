@@ -5,7 +5,7 @@ services:
     container_name: 'homeland_postgresql'
     image: postgres:9.5-alpine
     ports:
-      - '5432'
+      - '127.0.0.1:5432:5432'
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
@@ -15,7 +15,7 @@ services:
     container_name: 'homeland_redis'
     image: redis:7-alpine
     ports:
-      - '6379'
+      - '127.0.0.1:6379:6379'
     volumes:
       - ./data/redis:/data
       - ./etc/redis.conf:/etc/redis.conf
@@ -23,7 +23,7 @@ services:
 
   app: &app_base
     container_name: 'homeland_app'
-    image: homeland/homeland:${IMAGE_VERSION:-3-8-latest}
+    image: ghcr.io/blacksize/marsland:latest
     env_file:
       - app.secret.env
       - app.local.env
@@ -45,7 +45,7 @@ services:
       - ./etc/nginx/conf.d:/etc/nginx/conf.d
     command: /home/app/homeland/bin/docker-start
     ports:
-      - '7000'
+      - '127.0.0.1:7000:7000'
 
   app_backup:
     <<: *app_base
@@ -69,7 +69,7 @@ services:
       - worker
     command: /etc/nginx/start
     ports:
-      - '8080:80'
+      - '127.0.0.1:8080:80'
 
   caddy:
     image: caddy:2-alpine
