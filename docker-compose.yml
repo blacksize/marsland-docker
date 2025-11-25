@@ -52,7 +52,7 @@ services:
     container_name: 'homeland_app_backup'
     command: bundle exec puma -C config/puma-backup.rb
     ports:
-      - '7001'
+      - '127.0.0.1:7001:7001'
 
   worker:
     <<: *app_base
