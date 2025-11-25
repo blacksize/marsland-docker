@@ -1,5 +1,7 @@
 {$domain} {
     reverse_proxy {
+        header_up X-Real-IP {header.CF-Connecting-IP}
+        header_up X-Forwarded-For {header.CF-Connecting-IP}
         to web:80
     }
 }
